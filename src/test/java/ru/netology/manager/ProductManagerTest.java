@@ -30,22 +30,6 @@ public class ProductManagerTest {
     }
 
     @Test
-    public void shouldMatchForTrue() {
-
-        Boolean actual = manager.match(simplyProduct, "some");
-
-       assertEquals(true, actual);
-    }
-
-    @Test
-    public void shouldMatchForFalse() {
-
-        Boolean actual = manager.match(book, "some");
-
-        assertEquals(false, actual);
-    }
-
-    @Test
     public void shouldSearchByQuery() {
 
         manager.addProduct(book);
