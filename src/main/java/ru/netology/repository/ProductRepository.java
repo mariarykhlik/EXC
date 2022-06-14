@@ -8,13 +8,6 @@ public class ProductRepository {
 
     private Product[] products = new Product[0];
 
-    public void saveProduct(Product product) {
-        Product[] tmp = new Product[products.length + 1];
-        System.arraycopy(products, 0, tmp, 0, products.length);
-        tmp[products.length] = product;
-        products = tmp;
-    }
-
     public Product[] findAll() {
         return products;
     }
@@ -26,6 +19,16 @@ public class ProductRepository {
             }
         }
         return null;
+    }
+
+    public void saveProduct(Product product) {
+        if (!Objects.equals(findById(product.getId()), null)) {
+            throw new AlreadyExistsException("Element with id " + product.getId() + " already exists");
+        }
+        Product[] tmp = new Product[products.length + 1];
+        System.arraycopy(products, 0, tmp, 0, products.length);
+        tmp[products.length] = product;
+        products = tmp;
     }
 
     public void removeById(String id) {

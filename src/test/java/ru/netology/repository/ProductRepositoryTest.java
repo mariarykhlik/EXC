@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductRepositoryTest {
 
-    Product book = new Book("ISBN123","Java basic", 2000, "F.Voronov");
-    Product smartphone = new Smartphone("S/N123","J-Fold", 200000, "Samsung");
+    Product book = new Book("ISBN123", "Java basic", 2000, "F.Voronov");
+    Product smartphone = new Smartphone("S/N123", "J-Fold", 200000, "Samsung");
     Product simplyProduct = new Product("321", "something", 100);
 
     ProductRepository repository = new ProductRepository();
@@ -34,6 +34,19 @@ public class ProductRepositoryTest {
         Product[] expected = {book, smartphone, simplyProduct};
         Product[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldThrowAlreadyExistsException() {
+
+        repository.saveProduct(book);
+        repository.saveProduct(smartphone);
+        repository.saveProduct(simplyProduct);
+
+
+        assertThrows(AlreadyExistsException.class, () -> {
+            repository.saveProduct(simplyProduct);
+        });
     }
 
     @Test
