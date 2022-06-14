@@ -49,4 +49,16 @@ public class ProductRepositoryTest {
         Product[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldThrowNotFoundException() {
+
+        repository.saveProduct(book);
+        repository.saveProduct(smartphone);
+        repository.saveProduct(simplyProduct);
+
+        assertThrows(NotFoundException.class, () -> {
+            repository.removeById("4");
+        });
+    }
 }
